@@ -1,2 +1,5 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using RaspberryDotNetLedBlink.PiGpio;
+
+int initialized = PiGpioInterop.gpioInitialise();
+
+Console.WriteLine($"Hello, World! {initialized}");
