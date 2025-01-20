@@ -7,7 +7,7 @@ Instructions how to istall .Net SDK to your Raspberry Pi you can find [here](htt
 
 If the instructions don't work (as in my case). Instructions for manual .net installation:
 
-1. Go to the [official website](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) And click on link `Download binaries -> Arm64` On the download page, copy the direct link.
+1. Go to the [official website](https://dotnet.microsoft.com/en-us/download/dotnet/9.0) And click `Download binaries -> Arm64` link. Copy the direct link from the download page.
 2. Download the distribution on Pi:
 ```bash
 wget <URL_OF_THE_ARM64_TARBALL>
