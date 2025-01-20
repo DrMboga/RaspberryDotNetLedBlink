@@ -24,7 +24,7 @@ try
     {
         ledOn = !ledOn;
         gpio.Write(LedPin, ledOn ? GpioLevel.High : GpioLevel.Low);
-        Thread.Sleep(1000 * BlinkDelay);
+        Thread.Sleep(BlinkDelay);
     }
 } catch(Exception e)
 {
