@@ -3,6 +3,8 @@ using System.Runtime.InteropServices;
 
 namespace RaspberryDotNetLedBlink.PiGpio;
 
+// Library documentation: https://abyz.me.uk/rpi/pigpio/cif.html#gpioWrite
+
 public static partial class PiGpioInterop
 {
     [LibraryImport("pigpio")]

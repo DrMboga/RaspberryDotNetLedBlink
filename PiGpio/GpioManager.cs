@@ -11,12 +11,43 @@ public class GpioManager: IDisposable
         int initialized = PiGpioInterop.gpioInitialise();
         if (initialized < 0)
         {
-            // TODO: Throw exception
+            throw new GpioException("initialization error", initialized);
         }
 
         Console.WriteLine("GPIO initialized");
     }
 
+    /// <summary>
+    /// Sets operation mode to one PGIO pin
+    /// </summary>
+    /// <param name="pin">GPIO pin number</param>
+    /// <param name="mode">Operational mode</param>
+    /// <exception cref="GpioException"></exception>
+    public void SetPinMode(uint pin, GpioMode mode)
+    {
+        int result = PiGpioInterop.gpioSetMode(pin, (uint)mode);
+        if (result < 0)
+        {
+            throw new GpioException("set pin mode error", result);
+        }
+    }
+
+    /// <summary>
+    /// Writes a value to GPIO pin
+    /// </summary>
+    /// <param name="pin">GPIO pin number</param>
+    /// <param name="level">Digital level</param>
+    /// <exception cref="GpioException"></exception>
+    public void Write(uint pin, GpioLevel level)
+    {
+        int result = PiGpioInterop.gpioWrite(pin, (uint) level);
+        if (result < 0)
+        {
+            throw new GpioException("write error", result);
+        }
+    }
+
+#region Dispose
     public void Dispose()
     {
         Dispose(disposing: true);
@@ -51,4 +82,5 @@ public class GpioManager: IDisposable
     {
         Dispose(disposing: false);
     }
+#endregion
 }

@@ -1,18 +1,34 @@
 ﻿using RaspberryDotNetLedBlink.PiGpio;
 
 const int BlinkDelay = 500; // milliseconds
+const uint LedPin = 23;
 
-using var gpio = new GpioManager();
-
-Console.CancelKeyPress += (sender, e) =>
+try
 {
-    e.Cancel = true; // Cancel the termination
-    Console.WriteLine("Ctrl+C pressed. Cleaning up...");
-    gpio.Dispose();
-    Environment.Exit(0);
-};
+    using var gpio = new GpioManager();
 
-while (true)
+    // Ctrl+C key handler
+    Console.CancelKeyPress += (sender, e) =>
+    {
+        e.Cancel = true; // Cancel the termination
+        Console.WriteLine("Ctrl+C pressed. Cleaning up...");
+        gpio.Dispose();
+        Environment.Exit(0);
+    };
+
+    gpio.SetPinMode(LedPin, GpioMode.Output);
+
+    bool ledOn = false;
+    // Infinite loop can be interrupted by Ctrl+C
+    while (true)
+    {
+        ledOn = !ledOn;
+        gpio.Write(LedPin, ledOn ? GpioLevel.High : GpioLevel.Low);
+        Thread.Sleep(1000 * BlinkDelay);
+    }
+} catch(Exception e)
 {
-    Thread.Sleep(1000 * BlinkDelay);
+    Console.ForegroundColor = ConsoleColor.Red;
+    Console.WriteLine($"Error occured: '{e.Message}'");
+    Console.ResetColor();
 }
