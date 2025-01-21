@@ -31,7 +31,6 @@ try
         {
             // Button pressed. Switch on or off the blinking mode
             Interlocked.Exchange(ref blinkModeOn, blinkModeOn == 0 ? 1 : 0);
-            Console.WriteLine($"Set blinkModeOn {blinkModeOn}");
         }
     };
 
@@ -39,7 +38,6 @@ try
     // Infinite loop can be interrupted by Ctrl+C
     while (true)
     {
-        Console.WriteLine($"- Read blinkModeOn {blinkModeOn}");
         if(blinkModeOn == 1)
         {
             ledOn = !ledOn;
