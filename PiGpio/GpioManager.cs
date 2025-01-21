@@ -9,7 +9,7 @@ public class GpioManager: IDisposable
     /// <summary>
     /// Triggers when some input GPIO state changed. Works together with <see cref="InitInputButtonAsActiveLow"/> method.
     /// </summary>
-    public event EventHandler<GpioStateChangedEventArgs> GpioStateChanged;
+    public event EventHandler<GpioStateChangedEventArgs>? GpioStateChanged;
 
     public GpioManager()
     {

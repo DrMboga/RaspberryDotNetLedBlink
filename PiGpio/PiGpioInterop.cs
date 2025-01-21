@@ -38,7 +38,7 @@ public static partial class PiGpioInterop
     /// </summary>
     /// <returns>0 if OK, otherwise <see cref="GpioErrorCode"/></returns>
     [LibraryImport("pigpio")]
-    public partial int gpioSetPullUpDown(uint gpio, uint pud);
+    public static partial int gpioSetPullUpDown(uint gpio, uint pud);
 
     /// <summary>
     /// Registers a function to be called (a callback) when the specified GPIO changes state.
