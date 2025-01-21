@@ -22,7 +22,7 @@ try
     // Set LED pin as output.
     gpio.SetPinMode(LedPin, GpioMode.Output);
 
-    bool blinkModeOn = false;
+    int blinkModeOn = 0;
     // Set Button pin as output and subscribe to state change
     gpio.InitInputPinAsPullUp(ButtonPin);
     gpio.GpioStateChanged += (_, e) => {
@@ -30,7 +30,8 @@ try
         if(e.Gpio == ButtonPin && e.Level == GpioLevel.Low)
         {
             // Button pressed. Switch on or off the blinking mode
-            blinkModeOn = !blinkModeOn;
+            Interlocked.Exchange(ref blinkModeOn, blinkModeOn == 0 ? 1 : 0);
+            Console.WriteLine($"Set blinkModeOn {blinkModeOn}");
         }
     };
 
@@ -38,7 +39,8 @@ try
     // Infinite loop can be interrupted by Ctrl+C
     while (true)
     {
-        if(blinkModeOn)
+        Console.WriteLine($"- Read blinkModeOn {blinkModeOn}");
+        if(blinkModeOn == 1)
         {
             ledOn = !ledOn;
             gpio.Write(LedPin, ledOn ? GpioLevel.High : GpioLevel.Low);
